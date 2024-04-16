@@ -12,7 +12,7 @@
 //
 // Execute `rustlings hint cow1` or use the `hint` watch subcommand for a hint.
 
-// I AM NOT DONE
+// I AM  DONE
 
 use std::borrow::Cow;
 
@@ -29,6 +29,8 @@ fn abs_all<'a, 'b>(input: &'a mut Cow<'b, [i32]>) -> &'a mut Cow<'b, [i32]> {
 
 #[cfg(test)]
 mod tests {
+    use std::f32::consts::E;
+
     use super::*;
 
     #[test]
@@ -49,6 +51,8 @@ mod tests {
         let mut input = Cow::from(&slice[..]);
         match abs_all(&mut input) {
             // TODO
+            Cow::Borrowed(_) => Ok(()),  // This is expected as no mutation should have triggered cloning
+            Cow::Owned(_) => Err("The Cow was unexpectedly converted to owned"),
         }
     }
 
@@ -61,6 +65,8 @@ mod tests {
         let mut input = Cow::from(slice);
         match abs_all(&mut input) {
             // TODO
+            Cow::Borrowed(_) => Err("error"),
+            Cow::Owned(_) => Ok(())
         }
     }
 
@@ -73,6 +79,9 @@ mod tests {
         let mut input = Cow::from(slice);
         match abs_all(&mut input) {
             // TODO
+            Cow::Borrowed(_) => Err("error"),
+            Cow::Owned(_) => Ok(())
         }
+
     }
 }
